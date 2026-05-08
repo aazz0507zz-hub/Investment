@@ -27,9 +27,10 @@ export const projectConfig = {
   // Recommended scenario
   recommendedScenario: 'scenario2',
 
-  // Contact / demo — placeholder for future integration
-  contactEmail: 'يحتاج تحقق لاحق',
-  contactPhone: 'يحتاج تحقق لاحق',
+  // Contact
+  ownerName: 'عبدالعزيز محمد العنزي',
+  contactPhone: '0500772878',
+  contactEmail: '',
 
   // Disclaimer
   disclaimer:

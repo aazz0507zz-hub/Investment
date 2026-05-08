@@ -6,6 +6,7 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -55,12 +56,18 @@ const config: Config = {
           800: '#3c4043',
           900: '#202124',
         },
+        // Semantic tokens — reference CSS vars for auto dark/light switching
+        surface: 'var(--surface)',
+        'surface-alt': 'var(--surface-alt)',
+        border: 'var(--border)',
+        'text-base': 'var(--text-base)',
+        'text-muted': 'var(--text-muted)',
       },
       fontFamily: {
         arabic: ['Segoe UI', 'Tahoma', 'Arial', 'sans-serif'],
       },
       backgroundImage: {
-        'hero-pattern': "linear-gradient(135deg, #0f2519 0%, #1a3d2b 50%, #0f2519 100%)",
+        'hero-pattern': 'linear-gradient(135deg, #0f2519 0%, #1a3d2b 50%, #0f2519 100%)',
       },
     },
   },

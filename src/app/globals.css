@@ -2,11 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Light mode (default) ── */
 :root {
   --forest: #1a3d2b;
   --charcoal: #1c1c1e;
   --ivory: #faf7f2;
   --gold: #c9a84c;
+
+  --surface: #faf7f2;
+  --surface-alt: #ede8df;
+  --border: #dadce0;
+  --text-base: #1c1c1e;
+  --text-muted: #5f6368;
+
+  --bg: #f5f0e8;
+  --card-bg: #ffffff;
+  --nav-bg: #ffffffee;
+}
+
+/* ── Dark mode ── */
+.dark {
+  --surface: #1c1c1e;
+  --surface-alt: #2c2c2e;
+  --border: #3a3a3c;
+  --text-base: #faf7f2;
+  --text-muted: #9aa0a6;
+
+  --bg: #1c1c1e;
+  --card-bg: #2c2c2e;
+  --nav-bg: #1c1c1eee;
 }
 
 html {
@@ -15,11 +39,12 @@ html {
 }
 
 body {
-  background-color: #1c1c1e;
-  color: #faf7f2;
+  background-color: var(--bg);
+  color: var(--text-base);
   font-family: 'Segoe UI', Tahoma, 'Arabic Transparent', Arial, sans-serif;
   direction: rtl;
   text-align: right;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 /* Scrollbar styling */
@@ -28,14 +53,14 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #1c1c1e;
+  background: var(--surface-alt);
 }
 ::-webkit-scrollbar-thumb {
-  background: #3a3a3c;
+  background: var(--border);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #5f6368;
+  background: var(--text-muted);
 }
 
 /* Hide scrollbar for nav */
@@ -53,8 +78,16 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Accent color for range inputs */
+/* Range inputs */
 input[type='range'] {
   accent-color: #c9a84c;
   cursor: pointer;
+}
+
+/* Card base */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
 }
