@@ -1,6 +1,10 @@
 import type { Metadata } from 'next';
-import './globals.css';
+import { ThemeProvider } from 'next-themes';
+import { InvestorProvider } from '@/contexts/InvestorContext';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { projectConfig } from '@/data/projectConfig';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: `${projectConfig.nameAr} — ${projectConfig.nameEn} | فرصة استثمارية في حائل`,
@@ -31,8 +35,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ar" dir="rtl">
-      <body>{children}</body>
+    <html lang="ar" dir="rtl" suppressHydrationWarning>
+      <body>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <InvestorProvider>
+            <Navbar />
+            <main className="min-h-screen">{children}</main>
+            <Footer />
+          </InvestorProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
