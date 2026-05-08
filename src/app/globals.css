@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --forest: #1a3d2b;
+  --charcoal: #1c1c1e;
+  --ivory: #faf7f2;
+  --gold: #c9a84c;
+}
+
+html {
+  scroll-behavior: smooth;
+  direction: rtl;
+}
+
+body {
+  background-color: #1c1c1e;
+  color: #faf7f2;
+  font-family: 'Segoe UI', Tahoma, 'Arabic Transparent', Arial, sans-serif;
+  direction: rtl;
+  text-align: right;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #1c1c1e;
+}
+::-webkit-scrollbar-thumb {
+  background: #3a3a3c;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5f6368;
+}
+
+/* Hide scrollbar for nav */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Table responsiveness */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Accent color for range inputs */
+input[type='range'] {
+  accent-color: #c9a84c;
+  cursor: pointer;
+}
