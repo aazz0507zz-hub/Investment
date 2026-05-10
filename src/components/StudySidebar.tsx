@@ -5,19 +5,20 @@ import { usePathname } from 'next/navigation';
 
 export const studyNav = [
   { href: '/study', label: 'نظرة عامة', icon: '🏠' },
-  { href: '/study/financials', label: 'التحليل المالي', icon: '📊' },
-  { href: '/study/scenarios', label: 'سيناريوهات الأسطول', icon: '🚗' },
-  { href: '/study/fleet', label: 'تفاصيل الأسطول', icon: '🔑' },
-  { href: '/study/pricing', label: 'التسعير', icon: '💰' },
+  { href: '/study/legal', label: 'القانوني والامتثال', icon: '⚖️' },
+  { href: '/study/market', label: 'تحليل السوق', icon: '📈' },
   { href: '/study/competitors', label: 'تحليل المنافسين', icon: '📍' },
+  { href: '/study/pricing', label: 'التسعير', icon: '💰' },
+  { href: '/study/fleet', label: 'الأسطول', icon: '🔑' },
+  { href: '/study/scenarios', label: 'سيناريوهات الأسطول', icon: '🚗' },
+  { href: '/study/financials', label: 'التحليل المالي', icon: '📊' },
+  { href: '/study/operations', label: 'التشغيل والعمليات', icon: '⚙️' },
   { href: '/study/risks', label: 'المخاطر', icon: '⚠️' },
-  { href: '/study/governance', label: 'الحوكمة والسياسات', icon: '📋' },
-  { href: '/study/timeline', label: 'الخطة الزمنية (90 يوم)', icon: '📅' },
-  { href: '/study/roadmap', label: 'خارطة الطريق', icon: '🗺️' },
-  { href: '/study/calculator', label: 'حاسبة الاستثمار', icon: '🧮' },
-  { href: '/study/dashboard', label: 'لوحة المستثمر (تجريبي)', icon: '📈' },
-  { href: '/study/downloads', label: 'التنزيلات', icon: '⬇️' },
-  { href: '/study/register', label: 'سجّل اهتمامك', icon: '✍️' },
+  { href: '/study/governance', label: 'الحوكمة والشفافية', icon: '📋' },
+  { href: '/study/investor-demo', label: 'منصة المستثمر (تجريبي)', icon: '📈' },
+  { href: '/study/timeline', label: 'الخطة الزمنية وخارطة الطريق', icon: '📅' },
+  { href: '/study/exit', label: 'حاسبة التخارج', icon: '🚪' },
+  { href: '/study/downloads', label: 'التنزيلات والتسجيل', icon: '⬇️' },
 ];
 
 export default function StudySidebar() {
@@ -29,7 +30,8 @@ export default function StudySidebar() {
         <nav className="flex flex-col gap-0.5">
           {studyNav.map((item, i) => {
             const active = pathname === item.href;
-            const isLast = i === studyNav.length - 1;
+            const isExit = item.href === '/study/exit';
+            const isDownload = item.href === '/study/downloads';
             return (
               <Link
                 key={item.href}
@@ -38,10 +40,10 @@ export default function StudySidebar() {
                   active
                     ? 'bg-forest text-ivory font-semibold'
                     : 'text-[var(--text-muted)] hover:text-[var(--text-base)] hover:bg-[var(--surface-alt)]'
-                } ${isLast ? 'mt-2 border-t border-[var(--border)] pt-3' : ''}`}
+                } ${isExit ? 'mt-2 border-t border-[var(--border)] pt-3' : ''} ${isDownload ? 'mt-1 border-t border-[var(--border)] pt-2' : ''}`}
               >
-                <span className="text-base leading-none">{item.icon}</span>
-                <span>{item.label}</span>
+                <span className="text-base leading-none shrink-0">{item.icon}</span>
+                <span className="leading-tight">{item.label}</span>
               </Link>
             );
           })}
@@ -51,43 +53,57 @@ export default function StudySidebar() {
   );
 }
 
-/** Prev/Next navigation bar rendered at the bottom of study pages */
+/** Prev/Next navigation rendered at the bottom of study pages */
 export function StudyPrevNext() {
   const pathname = usePathname();
   const idx = studyNav.findIndex((s) => s.href === pathname);
   const prev = idx > 0 ? studyNav[idx - 1] : null;
   const next = idx >= 0 && idx < studyNav.length - 1 ? studyNav[idx + 1] : null;
 
-  if (!prev && !next) return null;
+  const total = studyNav.length;
+  const current = idx >= 0 ? idx + 1 : null;
 
   return (
-    <div className="flex justify-between items-center mt-12 pt-6 border-t border-[var(--border)]">
-      {prev ? (
-        <Link
-          href={prev.href}
-          className="flex items-center gap-2 text-sm text-[var(--text-muted)] hover:text-[var(--text-base)] transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-          <span>{prev.label}</span>
-        </Link>
-      ) : (
-        <div />
+    <div className="mt-12 pt-6 border-t border-[var(--border)] space-y-4">
+      {current && (
+        <div className="text-center text-xs text-[var(--text-muted)]">
+          الجزء {current} من {total}
+        </div>
       )}
-      {next ? (
+      <div className="flex justify-between items-center">
+        {prev ? (
+          <Link
+            href={prev.href}
+            className="flex items-center gap-2 text-sm text-[var(--text-muted)] hover:text-[var(--text-base)] transition-colors group"
+          >
+            <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <span>{prev.label}</span>
+          </Link>
+        ) : (
+          <div />
+        )}
         <Link
-          href={next.href}
-          className="flex items-center gap-2 text-sm text-[var(--text-muted)] hover:text-[var(--text-base)] transition-colors"
+          href="/study"
+          className="text-xs text-[var(--text-muted)] hover:text-[var(--text-base)] transition-colors px-3 py-1 rounded-md border border-[var(--border)] hover:bg-[var(--surface-alt)]"
         >
-          <span>{next.label}</span>
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
+          فهرس الدراسة
         </Link>
-      ) : (
-        <div />
-      )}
+        {next ? (
+          <Link
+            href={next.href}
+            className="flex items-center gap-2 text-sm text-[var(--text-muted)] hover:text-[var(--text-base)] transition-colors group"
+          >
+            <span>{next.label}</span>
+            <svg className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </Link>
+        ) : (
+          <div />
+        )}
+      </div>
     </div>
   );
 }
